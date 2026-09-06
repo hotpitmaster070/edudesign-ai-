@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduDesign.ai — ИИ-Ментор для студентов-дизайнеров</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0B0A12;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        /* Шапка сайта */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #A855F7, #6366F1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge-baku {
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid #A855F7;
+            color: #D8B4FE;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Первый главный экран */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+            min-height: 80vh;
+        }
+
+        .tagline {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9CA3AF;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, #C084FC, #818CF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #9CA3AF;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        /* Кнопка */
+        .cta-btn {
+            background: linear-gradient(135deg, #8B5CF6, #6366F1);
+            color: white;
+            border: none;
+            padding: 16px 36px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Интерактивная зона загрузки (Имитация) */
+        .upload-zone {
+            margin-top: 60px;
+            width: 100%;
+            max-width: 500px;
+            height: 200px;
+            border: 2px dashed rgba(168, 85, 247, 0.4);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(168, 85, 247, 0.02);
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .upload-zone:hover {
+            background: rgba(168, 85, 247, 0.05);
+            border-color: #A855F7;
+        }
+
+        .upload-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .upload-text {
+            color: #A7F3D0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .upload-subtext {
+            color: #6B7280;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+              /* Блок: Как работает ИИ */
+        .features-section {
+            padding: 60px 8%;
+            background: #0E0D18;
+            text-align: center;
+        }
+
+        .features-section h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #FFF, #9CA3AF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .grid-features {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px 24px;
+            border-radius: 16px;
+            text-align: left;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .step-num {
+            font-size: 14px;
+            font-weight: 700;
+            color: #A855F7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #FFFFFF;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: #9CA3AF;
+            line-height: 1.5;
+        }
+
+        /* Адаптивность для больших экранов компьютеров */
+        @media (min-width: 768px) {
+            .grid-features {
+                flex-direction: row;
+            }
+            .feature-card {
+                flex: 1;
+            }
+            .features-section h2 {
+                font-size: 40px;
+            }
+        }
+
+              /* Переключатель языков */
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9CA3AF;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: #A855F7;
+            color: white;
+            border-color: #A855F7;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Блок: Заработок в Баку */
+        .earn-section {
+            padding: 60px 8%;
+            background: #0E0D18;
+            text-align: center;
+        }
+
+        .earn-section h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #FFF, #9CA3AF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .earn-section .descr {
+            color: #9CA3AF;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            line-height: 1.6;
+        }
+
+        /* Карточки заказов */
+        .orders-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .order-card {
+            background: rgba(168, 85, 247, 0.03);
+            border: 1px solid rgba(168, 85, 247, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-info h4 {
+            font-size: 18px;
+            color: #FFFFFF;
+            margin-bottom: 5px;
+        }
+
+        .order-info p {
+            font-size: 14px;
+            color: #9CA3AF;
+        }
+
+        .order-price {
+            text-align: right;
+        }
+
+        .price-tag {
+            font-size: 20px;
+            font-weight: 800;
+            color: #A7F3D0;
+            margin-bottom: 5px;
+        }
+
+        .take-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .take-btn:hover {
+            background: #6366F1;
+            border-color: #6366F1;
+        }
+
+        @media (min-width: 768px) {
+            .earn-section h2 { font-size: 40px; }
+        }
+
+              /* Блок 5: Подвал и Форма */
+        footer {
+            padding: 60px 8%;
+            background: #0B0A12;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .footer-content h3 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #C084FC, #818CF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-content p {
+            color: #9CA3AF;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .waitlist-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .waitlist-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 20px;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .waitlist-input:focus {
+            border-color: #A855F7;
+        }
+
+        .submit-btn {
+            background: #FFFFFF;
+            color: #0B0A12;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #E5E7EB;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #4B5563;
+        }
+
+        @media (min-width: 768px) {
+            .waitlist-form {
+                flex-direction: row;
+            }
+            .waitlist-input {
+                flex: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+       <header>
+        <div class="logo">EduDesign.ai</div>
+        <div class="header-right">
+            <div class="lang-switcher">
+                <button class="lang-btn" onclick="changeLang('az')">AZ</button>
+                <button class="lang-btn active" onclick="changeLang('ru')">RU</button>
+                <button class="lang-btn" onclick="changeLang('en')">EN</button>
+            </div>
+            <div class="badge-baku">📍 Baku</div>
+        </div>
+    </header>
+ 
+             <section class="earn-section">
+            <h2>Твой первый заработок в Баку</h2>
+            <p class="descr">Боишься фриланса? Наш ИИ подстрахует тебя. Бери простые заказы от локального бизнеса, проверяй работу через AI-ментора и сдавай её заказчику без единой правки.</p>
+            
+            <div class="orders-container">
+                <!-- Заказ 1 -->
+                <div class="order-card">
+                    <div class="order-info">
+                        <h4>Баннер для кофейни в Баку</h4>
+                        <p>Студия: Coffee Hub Baku • Срочно</p>
+                    </div>
+                    <div class="order-price">
+                        <div class="price-tag">40 AZN</div>
+                        <button class="take-btn" onclick="alert('Вы взяли заказ! ИИ готов проверять ваш макет.')">Взять заказ</button>
+                    </div>
+                </div>
+
+                <!-- Заказ 2 -->
+                <div class="order-card">
+                    <div class="order-info">
+                        <h4>Логотип для IT-стартапа</h4>
+                        <p>Компания: TechAz • Осталось 2 дня</p>
+                    </div>
+                    <div class="order-price">
+                        <div class="price-tag">120 AZN</div>
+                        <button class="take-btn" onclick="alert('Вы взяли заказ! ИИ готов проверять ваш макет.')">Взять заказ</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+   
+
+    <main>
+        <section class="hero-section">
+            <div class="tagline">Платформа №1 для будущих топ-дизайнеров Азербайджана</div>
+            <h1>Создавай топовый дизайн. <br><span>Зарабатывай и учись с ИИ.</span></h1>
+            <p class="subtitle">Загрузи свой макет, получи мгновенный разбор ошибок от «Умного глаза» ИИ и забирай первые оплачиваемые заказы от компаний в Баку.</p>
+            
+            <button class="cta-btn" onclick="alert('Отличный старт! ИИ готов к работе.')">Загрузить работу бесплатно</button>
+
+            <div class="upload-zone" onclick="alert('Сюда студент будет перетаскивать свой логотип или баннер!')">
+                <div class="upload-icon">✨</div>
+                <div class="upload-text">Перетащи сюда свой макет (PNG, JPG)</div>
+                <div class="upload-subtext">Умный глаз AI проверит его за 5 секунд</div>
+            </div>
+        </section>
+              <section class="features-section">
+            <h2>Как работает «Умный Глаз» AI</h2>
+            
+            <div class="grid-features">
+                <div class="feature-card">
+                    <div class="step-num">Шаг 1</div>
+                    <h3>Загрузка макета</h3>
+                    <p>Студент загружает свой дизайн (логотип, баннер или интерфейс приложения) прямо на платформу в один клик.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="step-num">Шаг 2</div>
+                    <h3>AI-Сканирование</h3>
+                    <p>Нейросеть мгновенно анализирует композицию, шрифтовые пары, баланс цвета, отступы и сетку по мировым стандартам.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="step-num">Шаг 3</div>
+                    <h3>Вердикт и Оценка</h3>
+                    <p>Платформа выдает честный балл, подсвечивает ошибки прямо на макете и дает четкие текстовые подсказки — что именно исправить.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+      <!-- Закрываем тег main, который мы открыли в начале -->
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <h3>Стань частью EduDesign.ai</h3>
+            <p>Оставь свой Email, чтобы получить ранний доступ к платформе и ИИ-ментору среди первых студентов в Баку.</p>
+            
+            <div class="waitlist-form">
+                <input type="email" id="user-email" class="waitlist-input" placeholder="Твой Email" required>
+                <button class="submit-btn" onclick="saveEmail()">Войти в Waitlist</button>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 EduDesign.ai. Все права защищены. Made for Baku Students.
+        </div>
+    </footer>
+
+    <!-- А вот и наш скрипт, которого не хватало! -->
+    <script>
+        function changeLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            alert('Язык переключен на: ' + lang.toUpperCase() + '. На этапе базы данных мы подключим сюда автоматическую смену текстов на сайте!');
+        }
+
+        function saveEmail() {
+            var email = document.getElementById('user-email').value;
+            if(email === "") {
+                alert('Пожалуйста, введите ваш Email!');
+            } else {
+                alert('Супер! Email ' + email + ' успешно добавлен в список ожидания. На следующем этапе мы научим сайт сохранять его в настоящую базу данных Supabase!');
+                document.getElementById('user-email').value = ""; // Очищаем поле
+            }
+        }
+   </script>
+
+</body>
+</html>
