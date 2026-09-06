@@ -403,14 +403,8 @@
         </div>
     </footer>
 
-    <script>
-                // Подключение к твоей базе данных Supabase
-        const SUPABASE_URL = "https://supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtqZnByZHBjaHdoc2NmdWRrcHhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTM4MDUsImV4cCI6MjEwNDI2OTgwNX0.RhYwQwJQywP6rz5w0DCdpyEe6q6Ckzt475UXt_sRpMQ";
-        
-        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // Принудительно включаем Баку без внешних запросов к сомнительным сервисам!
+        <script>
+        // Чистая архитектура: сайт просто ставит Баку по умолчанию для этого релиза
         function initSite() {
             document.getElementById('user-city').innerText = "📍 Baku";
             document.getElementById('dynamic-tagline').innerText = "Платформа №1 для будущих топ-дизайнеров Азербайджана";
@@ -422,10 +416,9 @@
             document.getElementById('price-2').innerText = "120 AZN";
         }
         
-        // Запуск сайта
         initSite();
 
-        // Полноценная функция отправки данных напрямую в Supabase
+        // Безопасная отправка данных на наш собственный Backend-сервер Vercel
         async function saveEmail() {
             const emailInput = document.getElementById('user-email');
             const email = emailInput.value;
@@ -436,33 +429,30 @@
             }
 
             try {
-                // Прямая отправка без лишних оберток
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+                // Запрос идет на НАШ внутренний сервер, что исключает блокировки операторов
+                const response = await fetch('/api/save-email', {
                     method: 'POST',
                     headers: {
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        'Content-Type': 'application/json',
-                        'Prefer': 'return=minimal'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ email: email })
                 });
 
-                if (response.ok) {
-                    alert('Ура! Твой Email успешно сохранен в базу данных проекта EduDesign.ai. Скоро мы откроем ранний доступ!');
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    alert('Ура! Твой Email успешно сохранен через защищенный сервер EduDesign.ai!');
                     emailInput.value = "";
                 } else {
-                    const errData = await response.text();
-                    console.error("Supabase API Error:", errData);
-                    alert('Ошибка базы данных. Проверьте, создана ли таблица waitlist в Supabase и отключен ли RLS.');
+                    alert('Ошибка сервера: ' + (result.error || 'Неизвестная ошибка'));
                 }
             } catch (err) {
-                console.error("Network Error:", err);
-                alert('Сетевая ошибка. Возможно, ваш браузер или оператор блокирует соединение с базой данных.');
+                console.error("Сетевая ошибка:", err);
+                alert('Не удалось связаться с сервером проекта. Проверьте стабильность интернета.');
             }
         }
-        
     </script>
+
 </body>
 </html>
 
