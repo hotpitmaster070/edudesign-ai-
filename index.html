@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduDesign.ai — Глобальный ИИ-Ментор для дизайнеров</title>
     <!-- Официальный скрипт Supabase для связи с базой данных -->
+    <script src="https://jsdelivr.net"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -313,9 +314,9 @@
         <div class="logo">EduDesign.ai</div>
         <div class="header-right">
             <div class="lang-switcher">
-                <button class="lang-btn" onclick="alert('Языковая панель в разработке')">AZ</button>
+                <button class="lang-btn" onclick="alert('Панель языков в разработке')">AZ</button>
                 <button class="lang-btn active">RU</button>
-                <button class="lang-btn" onclick="alert('Языковая панель в разработке')">EN</button>
+                <button class="lang-btn" onclick="alert('Панель языков в разработке')">EN</button>
             </div>
             <div class="badge-location" id="user-city">📍 Определение...</div>
         </div>
@@ -325,164 +326,4 @@
         <section class="hero-section">
             <div class="tagline" id="dynamic-tagline">Глобальная платформа для будущих топ-дизайнеров</div>
             <h1>Создавай топовый дизайн. <br><span>Зарабатывай и учись с ИИ.</span></h1>
-            <p class="subtitle" id="dynamic-sub">Загрузи свой макет, получи мгновенный разбор ошибок от «Умного глаза» ИИ и забирай первые оплачиваемые заказы.</p>
-            
-            <button class="cta-btn" onclick="alert('ИИ-Модуль активирован. Загрузите файл ниже!')">Загрузить работу бесплатно</button>
-
-            <div class="upload-zone" onclick="alert('Перетащите сюда файл макета!')">
-                <div class="upload-icon">✨</div>
-                <div class="upload-text">Перетащи сюда свой макет (PNG, JPG)</div>
-                <div class="upload-subtext">Умный глаз AI проверит его за 5 секунд</div>
-            </div>
-        </section>
-
-        <section class="features-section">
-            <h2>Как работает «Умный Глаз» AI</h2>
-            <div class="grid-features">
-                <div class="feature-card">
-                    <div class="step-num">Шаг 1</div>
-                    <h3>Загрузка макета</h3>
-                    <p>Студент загружает свой дизайн (логотип, баннер или интерфейс приложения) прямо на платформу в один клик.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="step-num">Шаг 2</div>
-                    <h3>AI-Сканирование</h3>
-                    <p>Нейросеть мгновенно анализирует композицию, шрифтовые пары, баланс цвета, отступы и сетку по мировым стандартам.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="step-num">Шаг 3</div>
-                    <h3>Вердикт и Оценка</h3>
-                    <p>Платформа выдает честный балл, подсвечивает ошибки прямо на макете и дает четкие текстовые подсказки — что именно исправить.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="earn-section">
-            <h2>Твой первый заработок</h2>
-            <p class="descr" id="dynamic-earn-text">Боишься фриланса? Наш ИИ подстрахует тебя. Бери простые заказы от локального бизнеса, проверяй работу через AI-ментора и сдавай её заказчику без единой правки.</p>
-            
-            <div class="orders-container" id="orders-list">
-                <div class="order-card">
-                    <div class="order-info">
-                        <h4>Баннер для кофейни</h4>
-                        <p id="order-sub-1">Студия: Coffee Hub • Срочно</p>
-                    </div>
-                    <div class="order-price">
-                        <div class="price-tag" id="price-1">40 AZN</div>
-                        <button class="take-btn" onclick="alert('Вы взяли заказ! Загрузите макет для проверки ИИ.')">Взять заказ</button>
-                    </div>
-                </div>
-
-                <div class="order-card">
-                    <div class="order-info">
-                        <h4>Логотип для IT-стартапа</h4>
-                        <p id="order-sub-2">Компания: TechStart • Осталось 2 дня</p>
-                    </div>
-                    <div class="order-price">
-                        <div class="price-tag" id="price-2">120 AZN</div>
-                        <button class="take-btn" onclick="alert('Вы взяли заказ! Загрузите макет для проверки ИИ.')">Взять заказ</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <h3>Стань частью EduDesign.ai</h3>
-            <p>Оставь свой Email, чтобы получить ранний доступ к платформе и ИИ-ментору среди первых студентов в твоем городе.</p>
-            
-            <div class="waitlist-form">
-                <input type="email" id="user-email" class="waitlist-input" placeholder="Твой Email" required>
-                <button class="submit-btn" onclick="saveEmail()">Войти в Waitlist</button>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2026 EduDesign.ai. Все права защищены. Global Launch Edition.
-        </div>
-    </footer>
-
-    <script>
-        // Подключение к твоей базе данных Supabase
-        const SUPABASE_URL = "https://supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtqZnByZHBjaHdoc2NmdWRrcHhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTM4MDUsImV4cCI6MjEwNDI2OTgwNX0.RhYwQwJQywP6rz5w0DCdpyEe6q6Ckzt475UXt_sRpMQ";
-        
-        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // Автоматическая геолокация по IP-адресу
-        async function detectLocation() {
-            try {
-                const response = await fetch('https://ipapi.co');
-                const data = await response.json();
-                
-                if (data.city) {
-                    const city = data.city;
-                    document.getElementById('user-city').innerText = "📍 " + city;
-                    
-                    // Если пользователь зашел из БАКУ
-                    if (city.toLowerCase() === 'baku' || city.toLowerCase() === 'баку') {
-                        document.getElementById('dynamic-tagline').innerText = "Платформа №1 для будущих топ-дизайнеров Азербайджана";
-                        document.getElementById('dynamic-sub').innerText = "Загрузи свой макет, получи мгновенный разбор ошибок от «Умного глаза» ИИ и забирай первые оплачиваемые заказы от компаний в Баку.";
-                        document.getElementById('dynamic-earn-text').innerText = "Боишься фриланса? Наш ИИ подстрахует тебя. Бери простые заказы от локального бизнеса в Баку, проверяй работу через AI-ментора и сдавай её заказчику.";
-                        document.getElementById('order-sub-1').innerText = "Студия: Coffee Hub Baku • Срочно";
-                        document.getElementById('order-sub-2').innerText = "Компания: TechAz Baku • Осталось 2 дня";
-                        document.getElementById('price-1').innerText = "40 AZN";
-                        document.getElementById('price-2').innerText = "120 AZN";
-                    } 
-                    // Если пользователь зашел из СТАМБУЛА
-                    else if (city.toLowerCase() === 'istanbul' || city.toLowerCase() === 'стамбул') {
-                        document.getElementById('dynamic-tagline').innerText = "İstanbul'daki tasarım öğrencileri için #1 AI Platformu";
-                        document.getElementById('price-1').innerText = "800 TRY";
-                        document.getElementById('price-2').innerText = "2500 TRY";
-                    }
-                    // Для любых других городов мира (Глобальная версия в долларах)
-                    else {
-                        document.getElementById('dynamic-tagline').innerText = `Глобальная AI-платформа для дизайнеров в г. ${city}`;
-                        document.getElementById('price-1').innerText = "$25";
-                        document.getElementById('price-2').innerText = "$75";
-                    }
-                }
-                        } catch (error) {
-                // Если геолокация заблокирована оператором, принудительно включаем Баку!
-                console.log("Геолокация недоступна, включаем Баку по умолчанию");
-                document.getElementById('user-city').innerText = "📍 Baku";
-                document.getElementById('dynamic-tagline').innerText = "Платформа №1 для будущих топ-дизайнеров Азербайджана";
-                document.getElementById('dynamic-sub').innerText = "Загрузи свой макет, получи мгновенный разбор ошибок от «Умного глаза» ИИ и забирай первые оплачиваемые заказы от компаний в Баку.";
-                document.getElementById('dynamic-earn-text').innerText = "Боишься фриланса? Наш ИИ подстрахует тебя. Бери простые заказы от локального бизнеса в Баку, проверяй работу через AI-ментора и сдавай её заказчику.";
-                document.getElementById('order-sub-1').innerText = "Студия: Coffee Hub Baku • Срочно";
-                document.getElementById('order-sub-2').innerText = "Компания: TechAz Baku • Осталось 2 дня";
-                document.getElementById('price-1').innerText = "40 AZN";
-                document.getElementById('price-2').innerText = "120 AZN";
-            }
-
-        }
-        
-        detectLocation();
-
-        // Функция отправки Email в твой Supabase
-        async function saveEmail() {
-            const emailInput = document.getElementById('user-email');
-            const email = emailInput.value;
-
-            if (email === "") {
-                alert('Пожалуйста, введите ваш Email!');
-                return;
-            }
-
-            const { data, error } = await _supabase
-                .from('waitlist')
-                .insert([{ email: email }]);
-
-            if (error) {
-                console.error(error);
-                alert('Произошла техническая ошибка. Проверьте подключение к сети.');
-            } else {
-                alert('Ура! Твой Email успешно сохранен в базу данных проекта EduDesign.ai. Скоро мы откроем ранний доступ!');
-                emailInput.value = "";
-            }
-        }
-    </script>
-    </body>
-    </html>
-
     
