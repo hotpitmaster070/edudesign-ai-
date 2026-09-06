@@ -442,11 +442,19 @@
                         document.getElementById('price-2').innerText = "$75";
                     }
                 }
-            } catch (error) {
-                document.getElementById('user-city').innerText = "📍 Global Access";
-                document.getElementById('price-1').innerText = "$25";
-                document.getElementById('price-2').innerText = "$75";
+                        } catch (error) {
+                // Если геолокация заблокирована оператором, принудительно включаем Баку!
+                console.log("Геолокация недоступна, включаем Баку по умолчанию");
+                document.getElementById('user-city').innerText = "📍 Baku";
+                document.getElementById('dynamic-tagline').innerText = "Платформа №1 для будущих топ-дизайнеров Азербайджана";
+                document.getElementById('dynamic-sub').innerText = "Загрузи свой макет, получи мгновенный разбор ошибок от «Умного глаза» ИИ и забирай первые оплачиваемые заказы от компаний в Баку.";
+                document.getElementById('dynamic-earn-text').innerText = "Боишься фриланса? Наш ИИ подстрахует тебя. Бери простые заказы от локального бизнеса в Баку, проверяй работу через AI-ментора и сдавай её заказчику.";
+                document.getElementById('order-sub-1').innerText = "Студия: Coffee Hub Baku • Срочно";
+                document.getElementById('order-sub-2').innerText = "Компания: TechAz Baku • Осталось 2 дня";
+                document.getElementById('price-1').innerText = "40 AZN";
+                document.getElementById('price-2').innerText = "120 AZN";
             }
+
         }
         
         detectLocation();
