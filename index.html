@@ -404,42 +404,14 @@
     </footer>
 
     <script>
-        // Подключение к твоей изолированной базе данных Supabase
+                // Подключение к твоей базе данных Supabase
         const SUPABASE_URL = "https://supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtqZnByZHBjaHdoc2NmdWRrcHhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2OTM4MDUsImV4cCI6MjEwNDI2OTgwNX0.RhYwQwJQywP6rz5w0DCdpyEe6q6Ckzt475UXt_sRpMQ";
         
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Автоматическая геолокация по IP-адресу
-        async function detectLocation() {
-            try {
-                const response = await fetch('https://ipapi.co');
-                const data = await response.json();
-                
-                if (data && data.city) {
-                    const city = data.city;
-                    document.getElementById('user-city').innerText = "📍 " + city;
-                    
-                    if (city.toLowerCase() === 'baku' || city.toLowerCase() === 'баку') {
-                        setupBakuLayout();
-                    } else if (city.toLowerCase() === 'istanbul' || city.toLowerCase() === 'стамбул') {
-                        document.getElementById('dynamic-tagline').innerText = "İstanbul'daki tasarım öğrencileri için #1 AI Platformu";
-                        document.getElementById('price-1').innerText = "800 TRY";
-                        document.getElementById('price-2').innerText = "2500 TRY";
-                    } else {
-                        document.getElementById('dynamic-tagline').innerText = `Глобальная AI-платформа для дизайнеров в г. ${city}`;
-                        document.getElementById('price-1').innerText = "$25";
-                        document.getElementById('price-2').innerText = "$75";
-                    }
-                } else {
-                    setupBakuLayout();
-                }
-            } catch (error) {
-                setupBakuLayout();
-            }
-        }
-        
-        function setupBakuLayout() {
+        // Принудительно включаем Баку без внешних запросов к сомнительным сервисам!
+        function initSite() {
             document.getElementById('user-city').innerText = "📍 Baku";
             document.getElementById('dynamic-tagline').innerText = "Платформа №1 для будущих топ-дизайнеров Азербайджана";
             document.getElementById('dynamic-sub').innerText = "Загрузи свой макет, получи мгновенный разбор ошибок от «Умного глаза» ИИ и забирай первые оплачиваемые заказы от компаний в Баку.";
@@ -450,9 +422,10 @@
             document.getElementById('price-2').innerText = "120 AZN";
         }
         
-        detectLocation();
+        // Запуск сайта
+        initSite();
 
-        // Функция отправки Email в твою таблицу waitlist
+        // Полноценная функция отправки данных напрямую в Supabase
         async function saveEmail() {
             const emailInput = document.getElementById('user-email');
             const email = emailInput.value;
@@ -463,22 +436,32 @@
             }
 
             try {
-                const { data, error } = await _supabase
-                    .from('waitlist')
-                    .insert([{ email: email }]);
+                // Прямая отправка без лишних оберток
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({ email: email })
+                });
 
-                if (error) {
-                    console.error("Supabase Error:", error);
-                    alert('Ошибка базы данных. Убедитесь, что RLS в Supabase отключен.');
-                } else {
+                if (response.ok) {
                     alert('Ура! Твой Email успешно сохранен в базу данных проекта EduDesign.ai. Скоро мы откроем ранний доступ!');
                     emailInput.value = "";
+                } else {
+                    const errData = await response.text();
+                    console.error("Supabase API Error:", errData);
+                    alert('Ошибка базы данных. Проверьте, создана ли таблица waitlist в Supabase и отключен ли RLS.');
                 }
             } catch (err) {
-                console.error("Request Error:", err);
-                alert('Ошибка отправки запроса. Пожалуйста, попробуйте позже.');
+                console.error("Network Error:", err);
+                alert('Сетевая ошибка. Возможно, ваш браузер или оператор блокирует соединение с базой данных.');
             }
         }
+        
     </script>
 </body>
 </html>
