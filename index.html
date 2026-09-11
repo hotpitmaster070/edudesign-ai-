@@ -2,6 +2,7 @@
 <html lang="az">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EduDesign.ai — Məryəmin Ailə Akademiyası</title>
 </head>
 <body style="background:#0B0A12; color:white; font-family: sans-serif; text-align:center; padding:50px;">
@@ -9,14 +10,46 @@
   <p>Ata və qızın Bakıda qurduğu kiçik akademiya</p>
   
   <div style="max-width:600px; margin:40px auto; background:#1A1925; padding:30px; border-radius:20px;">
-    <img src="maryam.jpg" style="width:80px; border-radius:50%;">
     <h2>Salam! Mən Məryəməm, 18 yaşım var ✨</h2>
     <p>Mən universitetdə oxumuram. Öz yolumu seçdim — dizayn.</p>
     <p>Son 4 ildə özüm öyrənmişəm. İndi öyrəndiklərimi sənə bacı kimi öyrətmək üçün atamla birlikdə bu akademiyanı qururam.</p>
     <p><b>Mən hələ öyrənirəm, amma birlikdə böyüyəcəyik.</b></p>
-    <button style="background:#7C5DFF; color:white; padding:15px 30px; border:none; border-radius:10px; margin-top:20px;">Akademiyaya daxil ol</button>
+    
+    <button onclick="startAcademy()" style="background:#7C5DFF; color:white; padding:15px 30px; border:none; border-radius:10px; margin-top:20px; cursor:pointer;">Akademiyaya daxil ol</button>
+    
+    <div id="academy" style="display:none; margin-top:30px; text-align:left; background:#252434; padding:20px; border-radius:15px;">
+      <h3>🎨 İlk dərsə xoş gəldin!</h3>
+      <p>Emailini yaz, sənə ilk tapşırığı göndərim:</p>
+      <input id="email" type="email" placeholder="email@example.com" style="width:100%; padding:12px; border-radius:8px; border:none; margin:10px 0;">
+      <button onclick="saveEmail()" style="background:#00D9A5; color:black; padding:12px 20px; border:none; border-radius:8px; width:100%; cursor:pointer;">Başla</button>
+      <p id="msg" style="margin-top:10px;"></p>
+    </div>
   </div>
 
   <p style="opacity:0.5; margin-top:50px;">Haqqımızda: Universitet yolu əvəzinə praktiki bilik. Yeni açılmışıq, ilk tələbələrimizi yığırıq.</p>
+
+<script>
+function startAcademy(){
+  document.getElementById('academy').style.display='block';
+  document.getElementById('academy').scrollIntoView({behavior:'smooth'});
+}
+async function saveEmail(){
+  const email = document.getElementById('email').value;
+  const msg = document.getElementById('msg');
+  if(!email){ msg.innerText='Email yaz!'; return; }
+  msg.innerText='Göndərilir...';
+  try{
+    const res = await fetch('/api/save-email', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email})
+    });
+    const data = await res.json();
+    msg.innerText = 'Super! Qeyd olundu ✅ Tezliklə yazacam!';
+  }catch(e){
+    msg.innerText = 'Xəta oldu, amma emailini qeyd etdim: ' + email;
+  }
+}
+</script>
 </body>
 </html>
